@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Playlist Downloader</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #181818;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 40%;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #282828;
+            border-radius: 5px;
+            background-color: #282828;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background-color: #1DB954;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1ed760;
+        }
+
+        .download-section {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .download-section h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .download-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .download-section li {
+            margin-bottom: 10px;
+        }
+
+        .download-section a {
+            color: #1DB954;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .download-section a:hover {
+            text-decoration: underline;
+            color: #1ed760;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #b3b3b3;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Spotify Playlist Downloader</h1>
+        <form action="/" method="POST">
+            <input type="text" name="playlist_url" placeholder="Enter Spotify Playlist URL" required>
+            <br>
+            <input type="submit" value="Download Playlist as MP3">
+        </form>
+
+        {% if files %}
+        <div class="download-section">
+            <h3>Your Downloaded Songs:</h3>
+            <ul>
+                {% for file in files %}
+                <li>
+                    <a href="{{ url_for('download_file', filename=file.split('/')[-1]) }}" download>
+                        {{ file.split('/')[-1] }}
+                 </a>
+                </li>
+             {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <p class="footer">Created by Nandu Vaibhav.</p>
+    </div>
+
+</body>
+</html>
